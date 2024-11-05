@@ -8,6 +8,8 @@ import {
 import { Easing, Notifier, NotifierComponents, NotifierWrapper, NotifierRoot } from 'react-native-notifier';
 import Button from './Button';
 import CustomComponent from './CustomComponent';
+import Component from './Component';
+
 import {
   getContainerStyleBottomPosition,
   getContainerStyleClassicWithOverSwipe,
@@ -18,17 +20,28 @@ import {
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { TestCase, Tester } from '@rnoh/testerino';
 
-export default function NotifierTest() {
+export default function App() {
   const notifierRef = React.useRef<NotifierRoot>(null);
   const [texts, setText] = React.useState('');
 
   return (
     <>
-    <SafeAreaView style={{ flex: 1 }}>
+      <SafeAreaView style={{ flex: 1 }}>
         <GestureHandlerRootView style={{ flex: 1 }}>
           <NotifierWrapper >
-            <ScrollView >
+            <ScrollView>
               <Tester>
+                <TestCase itShould='基本测试'>
+                  <Button
+                    title="基本测试"
+                    onPress={() =>
+                      Notifier.showNotification({
+                        title: 'John Doe',
+                        description: '基本测试',
+                      })
+                    }
+                  />
+                </TestCase>
                 <TestCase itShould='description属性测试，设置通知一秒后关闭（默认三秒）'>
                   <Button
                     title="duration"
@@ -47,13 +60,58 @@ export default function NotifierTest() {
                     title="Component.Alert"
                     onPress={() =>
                       Notifier.showNotification({
-                        title: 'The request was failed',
-                        description: 'Check your internet connection, please',
+                        title: 'The request was failed The request was failed The request was failed',
+                        description: 'Check your internet connection, please Check your internet connection, please Check your internet connection, please',
                         Component: NotifierComponents.Alert,
                         componentProps: {
                           titleStyle: { color: 'blue' },
                           descriptionStyle: { color: 'green' },
                           alertType: 'error',
+                          backgroundColor:'red',
+                          textColor:'black',
+                          maxTitleLines:1,
+                          maxDescriptionLines:1,
+                        },
+                      })
+                    }
+                  />
+                </TestCase>
+                <TestCase itShould='测试Component.Alert属性'>
+                  <Button
+                    title="Component.Alert"
+                    onPress={() =>
+                      Notifier.showNotification({
+                        title: 'The request was failed The request was failed The request was failed',
+                        description: 'Check your internet connection, please Check your internet connection, please Check your internet connection, please',
+                        Component: NotifierComponents.Alert,
+                        componentProps: {
+                          titleStyle: { color: 'yellow' },
+                          descriptionStyle: { color: 'blue' },
+                          alertType: 'success',
+                          backgroundColor:'pink',
+                          maxTitleLines:2,
+                          maxDescriptionLines:2,
+                        },
+                      })
+                    }
+                  />
+                </TestCase>
+                <TestCase itShould='测试Component.Alert属性'>
+                  <Button
+                    title="Component.Alert"
+                    onPress={() =>
+                      Notifier.showNotification({
+                        title: 'The request was failed The request was failed The request was failed',
+                        description: 'Check your internet connection, please Check your internet connection, please Check your internet connection, please',
+                        Component: NotifierComponents.Alert,
+                        componentProps: {
+                          titleStyle: { color: 'yellow' },
+                          descriptionStyle: { color: 'blue' },
+                          alertType: 'success',
+                          backgroundColor:'pink',
+                          maxTitleLines:2,
+                          maxDescriptionLines:2,
+                          ContainerComponent:Component
                         },
                       })
                     }
@@ -64,14 +122,60 @@ export default function NotifierTest() {
                     title="Component.Notification"
                     onPress={() =>
                       Notifier.showNotification({
-                        title: 'The request was failed',
-                        description: 'Check your internet connection, please',
+                        title: 'The request was failed The request was failed The request was failed',
+                        description: 'Check your internet connection, please Check your internet connection, please Check your internet connection, please',
                         Component: NotifierComponents.Notification,
                         componentProps: {
                           titleStyle: { color: 'red' },
                           descriptionStyle: { color: 'blue', },
                           imageSource: require('./react.jpg'),
-                          imageStyle: { width: 30 }
+                          imageStyle: { width: 30 },
+                          containerStyle:{backgroundColor:"yellow"},
+                          maxTitleLines:1,
+                          maxDescriptionLines:1,
+                        },
+                      })
+                    }
+                  />
+                </TestCase>
+                <TestCase itShould='测试Component.Notification属性'>
+                  <Button
+                    title="Component.Notification"
+                    onPress={() =>
+                      Notifier.showNotification({
+                        title: 'The request was failed The request was failed The request was failedThe request was failed',
+                        description: 'Check your internet connection, please Check your internet connection, please Check your internet connection, please',
+                        Component: NotifierComponents.Notification,
+                        componentProps: {
+                          titleStyle: { color: 'blue' },
+                          descriptionStyle: { color: 'red', },
+                          imageSource: require('./kunkun.png'),
+                          imageStyle: { width: 50 },
+                          containerStyle:{backgroundColor:"green"},
+                          maxTitleLines:2,
+                          maxDescriptionLines:2,
+                        },
+                      })
+                    }
+                  />
+                </TestCase>
+                <TestCase itShould='测试Component.Notification属性'>
+                  <Button
+                    title="Component.Notification"
+                    onPress={() =>
+                      Notifier.showNotification({
+                        title: 'The request was failed The request was failed The request was failedThe request was failed',
+                        description: 'Check your internet connection, please Check your internet connection, please Check your internet connection, please',
+                        Component: NotifierComponents.Notification,
+                        componentProps: {
+                          titleStyle: { color: 'blue' },
+                          descriptionStyle: { color: 'red', },
+                          imageStyle: { width: 50 },
+                          containerStyle:{backgroundColor:"green"},
+                          maxTitleLines:2,
+                          maxDescriptionLines:2,
+                          ContainerComponent:Component
+
                         },
                       })
                     }
@@ -90,71 +194,71 @@ export default function NotifierTest() {
                   />
                 </TestCase>
                 <TestCase itShould='测试containerStyle，动画样式getContainerStyleClassicWithOverSwipe'>
-                                    <Button
-                                        title="动画样式"
-                                        onPress={() =>
-                                            notifierRef.current?.showNotification({
-                                                title: 'Pulldown',
-                                                description: 'Pulldown动画样式',
-                                                containerStyle: getContainerStyleClassicWithOverSwipe,
-                                                queueMode: 'standby',
-                                            })
-                                        }
-                                    />
-                                </TestCase>
-                                <TestCase itShould='测试containerProps属性'>
-                                    <Button
-                                        title="containerProps"
-                                        onPress={() =>
-                                            notifierRef.current?.showNotification({
-                                                title: 'containerProps',
-                                                description: '测试containerProps属性',
-                                                containerStyle: getContainerStyleOpacityOnly,
-                                                containerProps: { needsOffscreenAlphaCompositing: true },
-                                                queueMode: 'standby',
-                                            })
-                                        }
-                                    />
-                                </TestCase>
-                                <TestCase itShould='测试In/Out动画样式'>
-                                    <Button
-                                        title="动画样式"
-                                        onPress={() =>
-                                            notifierRef.current?.showNotification({
-                                                title: 'In/Out动',
-                                                description: 'In/Out动画样式',
-                                                containerStyle: getContainerStyleScaleOnly,
-                                                queueMode: 'standby',
-                                            })
-                                        }
-                                    />
-                                </TestCase>
-                                <TestCase itShould='测试Rotation动画样式'>
-                                    <Button
-                                        title="动画样式"
-                                        onPress={() =>
-                                            notifierRef.current?.showNotification({
-                                                title: 'Rotation',
-                                                description: 'Rotation动画样式',
-                                                containerStyle: getContainerStyleScaleAndRotation,
-                                                queueMode: 'standby',
-                                            })
-                                        }
-                                    />
-                                </TestCase>
-                                <TestCase itShould='测试Bottom Position 动画样式'>
-                                    <Button
-                                        title="动画样式"
-                                        onPress={() =>
-                                            notifierRef.current?.showNotification({
-                                                title: 'Bottom Position',
-                                                description: 'Bottom Position 动画样式',
-                                                containerStyle: getContainerStyleBottomPosition,
-                                                swipeEnabled: false,
-                                            })
-                                        }
-                                    />
-                                </TestCase>
+                  <Button
+                    title="动画样式"
+                    onPress={() =>
+                      notifierRef.current?.showNotification({
+                        title: 'Pulldown',
+                        description: 'Pulldown动画样式',
+                        containerStyle: getContainerStyleClassicWithOverSwipe,
+                        queueMode: 'standby',
+                      })
+                    }
+                  />
+                </TestCase>
+                <TestCase itShould='测试containerProps属性'>
+                  <Button
+                    title="containerProps"
+                    onPress={() =>
+                      notifierRef.current?.showNotification({
+                        title: 'containerProps',
+                        description: '测试containerProps属性',
+                        containerStyle: getContainerStyleOpacityOnly,
+                        containerProps: { needsOffscreenAlphaCompositing: true },
+                        queueMode: 'standby',
+                      })
+                    }
+                  />
+                </TestCase>
+                <TestCase itShould=' 测试containerStyle设置In/Out动画样式'>
+                  <Button
+                    title="动画样式"
+                    onPress={() =>
+                      notifierRef.current?.showNotification({
+                        title: 'In/Out动',
+                        description: 'In/Out动画样式',
+                        containerStyle: getContainerStyleScaleOnly,
+                        queueMode: 'standby',
+                      })
+                    }
+                  />
+                </TestCase>
+                <TestCase itShould='测试containerStyle设置Rotation动画样式'>
+                  <Button
+                    title="动画样式"
+                    onPress={() =>
+                      notifierRef.current?.showNotification({
+                        title: 'Rotation',
+                        description: 'Rotation动画样式',
+                        containerStyle: getContainerStyleScaleAndRotation,
+                        queueMode: 'standby',
+                      })
+                    }
+                  />
+                </TestCase>
+                <TestCase itShould='测试 containerStyle设置Bottom Position 动画样式'>
+                  <Button
+                    title="动画样式"
+                    onPress={() =>
+                      notifierRef.current?.showNotification({
+                        title: 'Bottom Position',
+                        description: 'Bottom Position 动画样式',
+                        containerStyle: getContainerStyleBottomPosition,
+                        swipeEnabled: false,
+                      })
+                    }
+                  />
+                </TestCase>
                 <TestCase itShould='测试queueMode-standby属性，将通知添加到队列末尾，默认为reset，清除通知队列并立即显示新通知。默认使用'>
                   <Button
                     title="queueMode-standby"
@@ -211,7 +315,7 @@ export default function NotifierTest() {
                     }
                   />
                 </TestCase>
-                <TestCase itShould='测试swipeEnabled,不能滑动隐藏通知（滑动关闭暂未看到效果'>
+                <TestCase itShould='测试swipeEnabled,不能滑动隐藏通知'>
                   <Button
                     title="swipeEnabled"
                     onPress={() =>
@@ -518,43 +622,19 @@ export default function NotifierTest() {
                     }
                   />
                 </TestCase>
-                <TestCase itShould='测试translucentStatusBar属性，状态栏透明(不支持)'>
-                  <Button
-                    title="translucentStatusBar"
-                    onPress={() =>
-                      Notifier.showNotification({
-                        title: 'translucentStatusBar',
-                        description: '状态栏透明暂不支持，默认false',
-                      })
-                    }
-                  />
-                </TestCase>
-                <TestCase itShould='测试translucentStatusBar属性，状态栏透明(不支持)'>
-                  <Button
-                    title="translucentStatusBar"
-                    onPress={() =>
-                      Notifier.showNotification({
-                        title: 'translucentStatusBar',
-                        description: '状态栏透明暂不支持，设置true',
-                        translucentStatusBar: true
-                      })
-                    }
-                  />
-                </TestCase>
                 <TestCase itShould='测试hideNotificationAPI，清楚通知'>
                   <Button title="Hide" onPress={() => Notifier.hideNotification()} />
                 </TestCase>
-
               </Tester>
             </ScrollView>
           </NotifierWrapper>
-          <NotifierRoot ref={notifierRef} />
-
+         <NotifierRoot ref={notifierRef} />
         </GestureHandlerRootView>
-        </SafeAreaView>
+      </SafeAreaView>
     </>
   );
 }
 
 const styles = StyleSheet.create({
+
 });

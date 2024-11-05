@@ -35,14 +35,14 @@ function TooltipDemo() {
       }
     },
     {
-      key: 'Tooltipp style:enterTouchDelay={1500}',
+      key: 'Tooltipp style:leaveTouchDelay={1500}',
       value: {
         title:"Selected Camera",
         leaveTouchDelay:1500,
       }
     },
     {
-      key: 'Tooltipp style:enterTouchDelay={3000}',
+      key: 'Tooltipp style:leaveTouchDelay={3000}',
       value: {
         title:"Selected Camera",
         leaveTouchDelay:3000,
@@ -69,6 +69,13 @@ function TooltipDemo() {
         theme:{ colors: { primary: 'green' } },
       }
     },
+    {
+      key: 'Tooltipp style:children=<IconButton icon="camera" selected size={24} onPress={() => {}} />',
+      value: {
+        title:"Selected Camera",
+        theme:{ colors: { primary: 'green' } },
+      }
+    },
   ]
 
   return (
@@ -78,7 +85,7 @@ function TooltipDemo() {
       {TooltippProps.map((item) => {
           return (
             <TestCase itShould={item.key}  key={item.key}>
-              <Tooltip title="Selected Camera">
+              <Tooltip {...item.value}>
                 <IconButton icon="camera" selected size={24} onPress={() => {}} />
               </Tooltip>
             </TestCase>

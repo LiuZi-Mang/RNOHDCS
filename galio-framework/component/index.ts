@@ -10,9 +10,10 @@ import NavBarDemo from "./NavBar"
 import RadioDemo from "./Radio"
 import SliderDemo from "./Slider"
 import SwitchDemo from "./Switch"
-import TestDemo from "./Text"
+import TextDemo from "./Text"
 import ToastDemo from "./ToastNotification"
-import ReanimatedDemo from "./test"
+
+
 
 export default{
     AccordionDemo,
@@ -27,7 +28,6 @@ export default{
     RadioDemo,
     SliderDemo,
     SwitchDemo,
-    TestDemo,
+    TextDemo,
     ToastDemo,
-    ReanimatedDemo
 }

@@ -40,6 +40,9 @@ export function requestLocationPermissionTest() {
     <Tester>
       <TestSuite name="requestLocationPermission">
         <TestCase itShould={`发起位置授权请求`}>
+          <View>
+            <Text>result: {status}</Text>
+          </View>
           <Camera
             style={style.cameraPreview}
             ref={camera}
@@ -51,7 +54,6 @@ export function requestLocationPermissionTest() {
             enableLocation
           />
           <View>
-            <Text>requestLocationPermission{status}</Text>
             <Button
               title="requestLocationPermission"
               onPress={requestLocationPermission}
@@ -64,7 +66,7 @@ export function requestLocationPermissionTest() {
 }
 
 const style = StyleSheet.create({
-  cameraPreview: {width: 300, height: 200},
+  cameraPreview: {width: '100%', aspectRatio: 56 / 100},
   actionBtn: {
     flexDirection: 'row',
     flexWrap: 'wrap',

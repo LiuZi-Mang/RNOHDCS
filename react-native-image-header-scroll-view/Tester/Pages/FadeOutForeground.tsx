@@ -112,9 +112,8 @@ function FadeOutForeground() {
 
     return (
         <Tester>
-            <TestSuite name='fadeOutForeground'>
-                <TestCase itShould='fadeOutForeground'>
-                   
+            <TestSuite name='fadeOutForeground 设置Foreground隐藏带淡出动画'>
+                <TestCase itShould='fadeOutForeground'>          
                         <View style={{ height:1000}}>
                             <ImageHeaderScrollView
                                   maxHeight={MAX_HEIGHT}

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, ScrollView, FlatList } from 'react-native';
-import { Block, Accordion } from 'galio-framework';
+import { Accordion } from 'galio-framework';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Entypo from 'react-native-vector-icons/Entypo';
@@ -140,7 +140,7 @@ const AccordionDemo = () => {
                         />
                     </View>
                 </TestCase>
-                <TestCase itShould="icon:Octiconsc name='flame'" tags={['C_API']} >
+                <TestCase itShould="icon:Octicons name='flame'" tags={['C_API']} >
                     <View style={{ height: 150 }}>
                         <Accordion
                             dataArray={data}

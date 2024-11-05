@@ -40,6 +40,7 @@ export function getMicrophonePermissionStatusTest() {
     <Tester>
       <TestSuite name="getMicrophonePermissionStatus">
         <TestCase itShould={``}>
+          <Text>result:{status}</Text>
           <Camera
             style={style.cameraPreview}
             ref={camera}
@@ -51,7 +52,6 @@ export function getMicrophonePermissionStatusTest() {
             enableLocation
           />
           <View>
-            <Text>getMicrophonePermissionStatus{status}</Text>
             <Button
               title="getMicrophonePermissionStatus"
               onPress={getMicrophonePermissionStatus}
@@ -64,7 +64,7 @@ export function getMicrophonePermissionStatusTest() {
 }
 
 const style = StyleSheet.create({
-  cameraPreview: {width: 300, height: 200},
+  cameraPreview: {width: '100%', aspectRatio: 56 / 100},
   actionBtn: {
     flexDirection: 'row',
     flexWrap: 'wrap',

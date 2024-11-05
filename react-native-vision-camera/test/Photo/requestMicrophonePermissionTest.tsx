@@ -31,15 +31,13 @@ export function requestMicrophonePermissionTest() {
   const requestMicrophonePermission = async () => {
     const res = await Camera.requestMicrophonePermission();
     res && set(JSON.stringify(res));
-    console.log('====================================');
-    console.log('res', JSON.stringify(res));
-    console.log('====================================');
   };
 
   return (
     <Tester>
       <TestSuite name="requestMicrophonePermission">
         <TestCase itShould={`发起麦克风授权请求`}>
+          <Text>result: {status}</Text>
           <Camera
             style={style.cameraPreview}
             ref={camera}
@@ -51,7 +49,6 @@ export function requestMicrophonePermissionTest() {
             enableLocation
           />
           <View>
-            <Text>requestMicrophonePermission{status}</Text>
             <Button
               title="requestMicrophonePermission"
               onPress={requestMicrophonePermission}
@@ -64,7 +61,7 @@ export function requestMicrophonePermissionTest() {
 }
 
 const style = StyleSheet.create({
-  cameraPreview: {width: 300, height: 200},
+  cameraPreview: {width: '100%', aspectRatio: 56 / 100},
   actionBtn: {
     flexDirection: 'row',
     flexWrap: 'wrap',

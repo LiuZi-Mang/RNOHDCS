@@ -1,6 +1,5 @@
 import React from 'react';
-
-import {StyleSheet, View, Button, Alert} from 'react-native';
+import {StyleSheet, View, Button, Alert, ScrollView} from 'react-native';
 import {LinearGradientText} from 'react-native-linear-gradient-text';
 import {TestCase, Tester, TestSuite} from '@rnoh/testerino';
 
@@ -20,27 +19,33 @@ function cyclicReturn(arr: any) {
 
 export function LinearGradientTextTest() {
   return (
-    <Tester>
-      <TestSuite name="colors and text">
-        <TestCase tags={['C_API']} itShould="设置文本以及颜色">
-          <ShowText />
-        </TestCase>
-      </TestSuite>
+    <ScrollView>
+      <Tester>
+        <TestSuite name="colors and text">
+          <TestCase tags={['C_API']} itShould="设置文本以及颜色">
+            <ShowText />
+          </TestCase>
+        </TestSuite>
 
-      <TestSuite name="colors and position">
-        <TestCase tags={['C_API']} itShould="设置渐变文本的起始位置">
-          <ChangeColorPosition />
-        </TestCase>
-      </TestSuite>
+        <TestSuite name="colors and position">
+          <TestCase tags={['C_API']} itShould="设置渐变文本的起始位置">
+            <ChangeColorPosition />
+          </TestCase>
+        </TestSuite>
 
-      <TestSuite name="textProps">
-        <TestCase
-          tags={['C_API']}
-          itShould="文本props,实现切换字体大小以及点击效果">
-          <ChangeTextStyle />
-        </TestCase>
-      </TestSuite>
-    </Tester>
+        <TestSuite name="textProps">
+          <TestCase tags={['C_API']} itShould="文本props,实现点击效果">
+            <ChangeTextProps />
+          </TestCase>
+        </TestSuite>
+
+        <TestSuite name="textStyle">
+          <TestCase tags={['C_API']} itShould="文本样式,实现切换字体大小">
+            <ChangeTextStyle />
+          </TestCase>
+        </TestSuite>
+      </Tester>
+    </ScrollView>
   );
 }
 
@@ -48,9 +53,9 @@ const gradientColors = [
   ['#FF5733', '#33FF57'], // 从橙色到绿色
   ['#3357FF', '#FF3357'], // 从蓝色到红色
   ['#33FFC1', '#C133FF'], // 从青色到紫色
-  ['#F333FF', '#FF33F3'], // 从品红色到紫色（类似）
-  ['#33FFF3', '#F333FF'], // 从青色到品红色
-  ['#FF33C1', '#C1FF33'], // 从橙红色到黄绿色
+  // ['#F333FF', '#FF33F3'], // 从品红色到紫色（类似）
+  // ['#33FFF3', '#F333FF'], // 从青色到品红色
+  // ['#FF33C1', '#C1FF33'], // 从橙红色到黄绿色
 ];
 
 const genText = cyclicReturn([
@@ -94,10 +99,9 @@ function ShowText() {
 
 function ChangeColorPosition() {
   const [startX, setStartX] = React.useState(0.5);
-  const [startY, setStartY] = React.useState(0);
-  const [endX, setEndX] = React.useState(1);
-  const [endY, setEndY] = React.useState(1);
-
+  const [startY, setStartY] = React.useState(0.7);
+  const [endX, setEndX] = React.useState(0.2);
+  const [endY, setEndY] = React.useState(0.7);
   return (
     <View style={styles.container}>
       <LinearGradientText
@@ -111,10 +115,18 @@ function ChangeColorPosition() {
       <Button
         title="change position"
         onPress={() => {
-          setStartX(parseFloat(Math.random().toFixed(1)));
-          setStartY(parseFloat(Math.random().toFixed(1)));
-          setEndX(parseFloat(Math.random().toFixed(1)));
-          setEndY(parseFloat(Math.random().toFixed(1)));
+          setStartX(v => {
+            return v === 0.5 ? 0.2 : 0.2;
+          });
+          setStartY(v => {
+            return v === 0.7 ? 0.2 : 0.7;
+          });
+          setEndX(v => {
+            return v === 0.2 ? 0.3 : 0.2;
+          });
+          setEndY(v => {
+            return v === 0.7 ? 0.3 : 0.7;
+          });
         }}
       />
     </View>
@@ -123,18 +135,12 @@ function ChangeColorPosition() {
 
 function ChangeTextStyle() {
   const [fontSize, setFontSize] = React.useState(10);
-  const [line, setline] = React.useState(1);
   return (
     <View style={styles.container}>
       <LinearGradientText
         colors={['#000000', '#ff0000', '#000000']}
         text={'Hello World react-native-linear-gradient-text'}
         textStyle={{fontSize: fontSize, width: 200}}
-        textProps={{
-          allowFontScaling: true,
-          numberOfLines: line,
-          onPress: () => Alert.alert('我被点击了'),
-        }}
       />
       <Button
         title="change font Size"
@@ -142,10 +148,28 @@ function ChangeTextStyle() {
           setFontSize(genFontSize());
         }}
       />
+    </View>
+  );
+}
+
+function ChangeTextProps() {
+  const [line, setLine] = React.useState(1);
+  return (
+    <View style={styles.container}>
+      <LinearGradientText
+        colors={['#000000', '#ff0000', '#000000']}
+        text={'Hello World react-native-linear-gradient-text'}
+        textStyle={{fontSize: 20, width: 200}}
+        textProps={{
+          allowFontScaling: true,
+          numberOfLines: line,
+          onPress: () => Alert.alert('我被点击了'),
+        }}
+      />
       <Button
         title="change textProps numberOfLines"
         onPress={() => {
-          setline(genLine());
+          setLine(genLine());
         }}
       />
     </View>

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
   StyleSheet,
   Text,
@@ -7,8 +7,9 @@ import {
   ScrollView,
   ActivityIndicator,
 } from 'react-native';
-import {SearchBar, Icon} from '@rneui/themed';
-import {Tester, TestSuite, TestCase} from '@rnoh/testerino';
+import { SearchBar, Icon } from '@rneui/themed';
+import { Tester, TestSuite, TestCase } from '@rnoh/testerino';
+import { Button } from '@rneui/base';
 
 type SearchBarComponentProps = {};
 
@@ -48,9 +49,11 @@ const SearchBarTest: React.FunctionComponent<SearchBarComponentProps> = () => {
   const [value16, setValue16] = useState('');
   const [value17, setValue17] = useState('');
   const [value18, setValue18] = useState('');
+  const [value19, setValue19] = useState('');
+  const [value20, setValue20] = useState('');
   return (
     <Tester>
-      <ScrollView style={{...styles.viewContainer}}>
+      <ScrollView style={{ ...styles.viewContainer }}>
         {/* <TestSuite name="SearchBar属性cancelButtonProps  设置cancelButtonProps 背景颜色 宽度高度 字体颜色 均无效">
           <TestCase itShould="cancelButtonProps" tags={['C_API']}>
             <SearchBar
@@ -102,8 +105,8 @@ const SearchBarTest: React.FunctionComponent<SearchBarComponentProps> = () => {
             <SearchBar
               autoFocus={true}
               cancelButtonProps={{
-                buttonStyle: {backgroundColor: 'red', width: 100, height: 100},
-                buttonTextStyle: {color: 'green'},
+                buttonStyle: { backgroundColor: 'red', width: 100, height: 100 },
+                buttonTextStyle: { color: 'green' },
               }}
               cancelIcon={
                 <Icon
@@ -116,10 +119,11 @@ const SearchBarTest: React.FunctionComponent<SearchBarComponentProps> = () => {
               showCancel={true}
               value={value2}
               onChangeText={value => setValue2(value)}
-              onCancel={() => {}}
+              onCancel={() => { }}
             />
           </TestCase>
         </TestSuite>
+        {/* 已解决 */}
         <TestSuite name="SearchBar属性clearIcon  设置clearIcon 输入后显示删除按钮 ">
           <TestCase itShould="clearIcon" tags={['C_API']}>
             <SearchBar
@@ -127,16 +131,26 @@ const SearchBarTest: React.FunctionComponent<SearchBarComponentProps> = () => {
               onChangeText={value => {
                 setValue4(value);
               }}
+              inputMode='numeric'
               placeholder="请输入"
               placeholderTextColor={'green'}
-              onClear={() => {}}
-              clearTextOnFocus={true}
+              onClear={() => {
+                
+              }}
               clearIcon={
-                <Icon
-                  name="remove"
-                  type="font-awesome"
-                  color="red"
-                  size={20}></Icon>
+                <Button onPress={()=>{
+                  setValue4('')
+                }} buttonStyle={{backgroundColor:'transparent'}} icon={{
+                  name: "remove",
+                  type: "font-awesome",
+                  color: "red"
+
+                }} />
+                // <Icon
+                //   name="remove"
+                //   type="font-awesome"
+                //   color="red"
+                //   size={20}></Icon>
               }
             />
           </TestCase>
@@ -151,7 +165,7 @@ const SearchBarTest: React.FunctionComponent<SearchBarComponentProps> = () => {
                 alignSelf: 'center',
               }}
               value={value5}
-              onChangeText={(value)=>setValue5(value)}
+              onChangeText={(value) => setValue5(value)}
               clearIcon={
                 <Icon
                   name="remove"
@@ -166,8 +180,8 @@ const SearchBarTest: React.FunctionComponent<SearchBarComponentProps> = () => {
           <TestCase itShould="inputContainerStyle" tags={['C_API']}>
             <SearchBar
               value={value6}
-              onChangeText={(value)=>setValue6(value)}
-              inputContainerStyle={{backgroundColor: 'pink'}}
+              onChangeText={(value) => setValue6(value)}
+              inputContainerStyle={{ backgroundColor: 'pink' }}
               clearIcon={
                 <Icon
                   name="remove"
@@ -182,8 +196,8 @@ const SearchBarTest: React.FunctionComponent<SearchBarComponentProps> = () => {
           <TestCase itShould="inputStyle" tags={['C_API']}>
             <SearchBar
               value={value7}
-              onChangeText={(value)=>setValue7(value)}
-              inputStyle={{backgroundColor: 'yellow'}}
+              onChangeText={(value) => setValue7(value)}
+              inputStyle={{ backgroundColor: 'yellow' }}
               clearIcon={
                 <Icon
                   name="remove"
@@ -202,7 +216,7 @@ const SearchBarTest: React.FunctionComponent<SearchBarComponentProps> = () => {
                 height: 50,
                 backgroundColor: 'red',
               }}
-              inputStyle={{backgroundColor: 'yellow'}}
+              inputStyle={{ backgroundColor: 'yellow' }}
               value={value8}
               onChangeText={value => setValue8(value)}
             />
@@ -227,7 +241,7 @@ const SearchBarTest: React.FunctionComponent<SearchBarComponentProps> = () => {
           <TestCase itShould="loadingProps" tags={['C_API']}>
             <SearchBar
               showLoading={true}
-              loadingProps={{animating: true, size: 20, color: 'red'}}
+              loadingProps={{ animating: true, size: 20, color: 'red' }}
               leftIcon={
                 <Icon
                   name="home"
@@ -236,9 +250,9 @@ const SearchBarTest: React.FunctionComponent<SearchBarComponentProps> = () => {
                   size={20}></Icon>
               }
               value={value10}
-              onChangeText={(value)=>setValue10(value)}
-              leftIconContainerStyle={{width: 50, height: 50}}
-              inputStyle={{backgroundColor: 'yellow'}}
+              onChangeText={(value) => setValue10(value)}
+              leftIconContainerStyle={{ width: 50, height: 50 }}
+              inputStyle={{ backgroundColor: 'yellow' }}
             />
           </TestCase>
         </TestSuite>
@@ -265,7 +279,7 @@ const SearchBarTest: React.FunctionComponent<SearchBarComponentProps> = () => {
             />
           </TestCase>
         </TestSuite> */}
-        <TestSuite name="SearchBar属性onClear 设置onClear  删除的回调事件 设置无效">
+        {/* <TestSuite name="SearchBar属性onClear 设置onClear  删除的回调事件 设置无效">
           <TestCase itShould="onClear" tags={['C_API']}>
             <SearchBar
               cancelButtonProps={{
@@ -294,7 +308,7 @@ const SearchBarTest: React.FunctionComponent<SearchBarComponentProps> = () => {
               onClear={() => {setValue12('')}}
             />
           </TestCase>
-        </TestSuite>
+        </TestSuite> */}
         {/* <TestSuite name="SearchBar属性platform 设置platform为default无效">
           <TestCase itShould="platform" tags={['C_API']}>
             <SearchBar
@@ -335,8 +349,8 @@ const SearchBarTest: React.FunctionComponent<SearchBarComponentProps> = () => {
               value={value14}
               onChangeText={value => setValue14(value)}
               cancelButtonProps={{
-                buttonStyle: {backgroundColor: 'red'},
-                buttonTextStyle: {color: 'green'},
+                buttonStyle: { backgroundColor: 'red' },
+                buttonTextStyle: { color: 'green' },
               }}
               cancelIcon={
                 <Icon
@@ -347,7 +361,7 @@ const SearchBarTest: React.FunctionComponent<SearchBarComponentProps> = () => {
               }
               cancelButtonTitle="取消"
               showCancel={true}
-              onCancel={() => {}}
+              onCancel={() => { }}
               clearIcon={
                 <Icon
                   name="remove"
@@ -355,7 +369,7 @@ const SearchBarTest: React.FunctionComponent<SearchBarComponentProps> = () => {
                   color="red"
                   size={20}></Icon>
               }
-              onClear={() => {}}
+              onClear={() => { }}
             />
           </TestCase>
         </TestSuite>
@@ -365,7 +379,7 @@ const SearchBarTest: React.FunctionComponent<SearchBarComponentProps> = () => {
               round={true}
               value={value15}
               onChangeText={value => setValue15(value)}
-              rightIconContainerStyle={{width: 50, height: 50}}
+              rightIconContainerStyle={{ width: 50, height: 50 }}
               rightIcon={
                 <Icon
                   name="save"
@@ -374,8 +388,8 @@ const SearchBarTest: React.FunctionComponent<SearchBarComponentProps> = () => {
                   size={20}></Icon>
               }
               cancelButtonProps={{
-                buttonStyle: {backgroundColor: 'red'},
-                buttonTextStyle: {color: 'green'},
+                buttonStyle: { backgroundColor: 'red' },
+                buttonTextStyle: { color: 'green' },
               }}
               cancelIcon={
                 <Icon
@@ -386,7 +400,7 @@ const SearchBarTest: React.FunctionComponent<SearchBarComponentProps> = () => {
               }
               cancelButtonTitle="取消"
               showCancel={true}
-              onCancel={() => {}}
+              onCancel={() => { }}
               clearIcon={
                 <Icon
                   name="remove"
@@ -394,15 +408,15 @@ const SearchBarTest: React.FunctionComponent<SearchBarComponentProps> = () => {
                   color="red"
                   size={20}></Icon>
               }
-              onClear={() => {}}
+              onClear={() => { }}
             />
           </TestCase>
         </TestSuite>
         <TestSuite name="SearchBar属性searchIcon 设置searchIcon">
           <TestCase itShould="searchIcon" tags={['C_API']}>
             <SearchBar
-             value={value16}
-             onChangeText={value => setValue16(value)}
+              value={value16}
+              onChangeText={value => setValue16(value)}
               searchIcon={
                 <Icon
                   name="search"
@@ -411,7 +425,7 @@ const SearchBarTest: React.FunctionComponent<SearchBarComponentProps> = () => {
                   size={20}></Icon>
               }
               round={true}
-              rightIconContainerStyle={{width: 50, height: 50}}
+              rightIconContainerStyle={{ width: 50, height: 50 }}
               rightIcon={
                 <Icon
                   name="save"
@@ -420,8 +434,8 @@ const SearchBarTest: React.FunctionComponent<SearchBarComponentProps> = () => {
                   size={20}></Icon>
               }
               cancelButtonProps={{
-                buttonStyle: {backgroundColor: 'red'},
-                buttonTextStyle: {color: 'green'},
+                buttonStyle: { backgroundColor: 'red' },
+                buttonTextStyle: { color: 'green' },
               }}
               cancelIcon={
                 <Icon
@@ -432,7 +446,7 @@ const SearchBarTest: React.FunctionComponent<SearchBarComponentProps> = () => {
               }
               cancelButtonTitle="取消"
               showCancel={true}
-              onCancel={() => {}}
+              onCancel={() => { }}
               clearIcon={
                 <Icon
                   name="remove"
@@ -440,7 +454,7 @@ const SearchBarTest: React.FunctionComponent<SearchBarComponentProps> = () => {
                   color="red"
                   size={20}></Icon>
               }
-              onClear={() => {}}
+              onClear={() => { }}
             />
           </TestCase>
         </TestSuite>
@@ -496,20 +510,20 @@ const SearchBarTest: React.FunctionComponent<SearchBarComponentProps> = () => {
           <TestCase itShould="showLoading" tags={['C_API']}>
             <SearchBar
               showLoading={true}
-              loadingProps={{animating: true, size: 20, color: 'red'}}
+              loadingProps={{ animating: true, size: 20, color: 'red' }}
               onChangeText={value => {
                 setValue18(value);
               }}
               value={value18}
               searchIcon={
                 <Icon
-                name="search"
+                  name="search"
                   type="font-awesome"
                   color="red"
                   size={20}></Icon>
               }
               round={true}
-              rightIconContainerStyle={{width: 50, height: 50}}
+              rightIconContainerStyle={{ width: 50, height: 50 }}
               rightIcon={
                 <Icon
                   name="save"
@@ -518,8 +532,8 @@ const SearchBarTest: React.FunctionComponent<SearchBarComponentProps> = () => {
                   size={20}></Icon>
               }
               cancelButtonProps={{
-                buttonStyle: {backgroundColor: 'red'},
-                buttonTextStyle: {color: 'green'},
+                buttonStyle: { backgroundColor: 'red' },
+                buttonTextStyle: { color: 'green' },
               }}
               cancelIcon={
                 <Icon
@@ -530,7 +544,7 @@ const SearchBarTest: React.FunctionComponent<SearchBarComponentProps> = () => {
               }
               cancelButtonTitle="取消"
               showCancel={true}
-              onCancel={() => {}}
+              onCancel={() => { }}
               clearIcon={
                 <Icon
                   name="remove"
@@ -538,7 +552,104 @@ const SearchBarTest: React.FunctionComponent<SearchBarComponentProps> = () => {
                   color="red"
                   size={20}></Icon>
               }
-              onClear={() => {}}
+              onClear={() => { }}
+            />
+          </TestCase>
+        </TestSuite>
+        <TestSuite name="SearchBar属性inputStyle 接收Input组件属性inputStyle">
+          <TestCase itShould="设置SearchBar的inputStyle" tags={['C_API']}>
+            <SearchBar
+              showLoading={true}
+              loadingProps={{ animating: true, size: 20, color: 'red' }}
+              onChangeText={value => {
+                setValue19(value);
+              }}
+              inputStyle={{ color: 'black', fontSize: 20, fontWeight: '400' }}
+              value={value19}
+              searchIcon={
+                <Icon
+                  name="search"
+                  type="font-awesome"
+                  color="red"
+                  size={20}></Icon>
+              }
+              round={true}
+              rightIconContainerStyle={{ width: 50, height: 50 }}
+              rightIcon={
+                <Icon
+                  name="save"
+                  type="font-awesome"
+                  color="red"
+                  size={20}></Icon>
+              }
+              cancelButtonProps={{
+                buttonStyle: { backgroundColor: 'red' },
+                buttonTextStyle: { color: 'green' },
+              }}
+              cancelIcon={
+                <Icon
+                  name="home"
+                  type="font-awesome"
+                  color="red"
+                  size={20}></Icon>
+              }
+              cancelButtonTitle="取消"
+              showCancel={true}
+              onCancel={() => { }}
+              clearIcon={
+                <Icon
+                  name="remove"
+                  type="font-awesome"
+                  color="red"
+                  size={20}></Icon>
+              }
+              onClear={() => { }}
+            />
+          </TestCase>
+        </TestSuite>
+        <TestSuite name="SearchBar属性editable 接收Input组件属性editable">
+          <TestCase itShould="设置ListItem.Input的editable" tags={['C_API']}>
+            <SearchBar
+              showLoading={true}
+              loadingProps={{ animating: true, size: 20, color: 'red' }}
+              onChangeText={value => {
+                setValue20(value);
+              }}
+              inputStyle={{ color: 'black', fontSize: 20, fontWeight: '400' }}
+              value={value20}
+              editable={false}
+
+              round={true}
+              rightIconContainerStyle={{ width: 50, height: 50 }}
+              rightIcon={
+                <Icon
+                  name="save"
+                  type="font-awesome"
+                  color="red"
+                  size={20}></Icon>
+              }
+              cancelButtonProps={{
+                buttonStyle: { backgroundColor: 'red' },
+                buttonTextStyle: { color: 'green' },
+              }}
+              cancelIcon={
+                <Icon
+                  name="home"
+                  type="font-awesome"
+                  color="red"
+                  size={20}></Icon>
+              }
+              cancelButtonTitle="取消"
+              showCancel={true}
+              onCancel={() => { }}
+              clearIcon={
+                <Icon
+                  name="remove"
+                  type="font-awesome"
+                  color="red"
+                  size={20}></Icon>
+              }
+              onClear={() => { }}
             />
           </TestCase>
         </TestSuite>

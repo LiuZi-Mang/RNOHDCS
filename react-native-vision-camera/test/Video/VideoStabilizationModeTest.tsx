@@ -13,10 +13,12 @@ export function VideoStabilizationModeTest() {
   const device = useCameraDevice('back');
   const {hasPermission, requestPermission} = useCameraPermission();
   const camera = useRef<Camera>(null);
+
   const format = useCameraFormat(device, [
-    {videoResolution: {width: 3048, height: 2160}},
+    {videoResolution: {width: 1920, height: 1080}},
     {fps: 30},
   ]);
+
   if (!device) {
     return <Text>No Devices</Text>;
   }
@@ -108,7 +110,10 @@ export function VideoStabilizationModeTest() {
                 title="SaveAsset"
                 onPress={() => {
                   CameraRoll.saveAsset(videoPath).then(res => {
-                    console.log('video-res', JSON.stringify(res));
+                    setTimeout(() => {
+                      setVideoPath('');
+                      setVideoFile('');
+                    }, 500);
                   });
                 }}
               />
@@ -129,40 +134,36 @@ export function VideoStabilizationModeTest() {
           />
 
           <View style={style.actionBtn}>
-            <View>
-              {videoHdr && videoCodec === 'h264' ? (
-                <Text>videoHdr为true时，videoCodeC只能设置为h265; </Text>
-              ) : (
-                <>
-                  {startStatus === 'end' ? (
-                    <Button title="开始" onPress={onStart}></Button>
-                  ) : (
-                    ''
-                  )}
-                  {startStatus === 'start' ? (
-                    <Button title="暂停" onPress={onPause}></Button>
-                  ) : (
-                    ''
-                  )}
-                  {startStatus === 'pause' ? (
-                    <Button title="恢复" onPress={onResume}></Button>
-                  ) : (
-                    ''
-                  )}
-                  {startStatus !== 'end' ? (
-                    <Button title="停止" onPress={onStop}></Button>
-                  ) : (
-                    ''
-                  )}
-                </>
-              )}
-              <Text>fps: 30</Text>
-            </View>
-            <View style={style.actionBtn}>
-              <Button
-                title={`mode:${videoStabilizationMode}`}
-                onPress={onChangeVideoMode}></Button>
-            </View>
+            {videoHdr && videoCodec === 'h264' ? (
+              <Text>videoHdr为true时，videoCodeC只能设置为h265; </Text>
+            ) : (
+              <>
+                {startStatus === 'end' ? (
+                  <Button title="开始" onPress={onStart}></Button>
+                ) : (
+                  ''
+                )}
+                {startStatus === 'start' ? (
+                  <Button title="暂停" onPress={onPause}></Button>
+                ) : (
+                  ''
+                )}
+                {startStatus === 'pause' ? (
+                  <Button title="恢复" onPress={onResume}></Button>
+                ) : (
+                  ''
+                )}
+                {startStatus !== 'end' ? (
+                  <Button title="停止" onPress={onStop}></Button>
+                ) : (
+                  ''
+                )}
+              </>
+            )}
+
+            <Button
+              title={`mode:${videoStabilizationMode}`}
+              onPress={onChangeVideoMode}></Button>
           </View>
         </TestCase>
       </TestSuite>
@@ -171,10 +172,7 @@ export function VideoStabilizationModeTest() {
 }
 
 const style = StyleSheet.create({
-  cameraPreview: {
-    width: 300,
-    height: 400,
-  },
+cameraPreview: {width: '100%', aspectRatio: 56 / 100},
   actionBtn: {
     flexDirection: 'row',
     flexWrap: 'wrap',

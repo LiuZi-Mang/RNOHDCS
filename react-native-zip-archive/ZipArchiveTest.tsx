@@ -1,10 +1,21 @@
 import React, { useState, useEffect } from 'react';
-import { View, Button, StyleSheet, TextInput, Alert, Text, ActivityIndicator } from 'react-native';
+import { View, ScrollView, Button, StyleSheet, TextInput, Alert, Text, ActivityIndicator } from 'react-native';
 import { pathParameters, zip, unzip, zipWithPassword, unzipWithPassword, subscribe, creteFile, isPasswordProtected, unzipAssets, getUncompressedSize } from 'react-native-zip-archive';
 import { ProgressBar } from 'react-native-paper';
 import { Tester, TestSuite, TestCase } from '@rnoh/testerino';
 
+//demo入口
 export const ZipArchiveDemoTest = () => {
+    return (
+        <ScrollView>
+            <View>
+                <ZipArchiveDemoTest_></ZipArchiveDemoTest_>
+            </View>
+        </ScrollView>
+    );
+};
+
+const ZipArchiveDemoTest_ = () => {
     const [fileName, setFileName] = useState('');
     const [fileContent, setFileContent] = useState('');
     const [createdFilePath, setCreatedFilePath] = useState('');
@@ -31,6 +42,7 @@ export const ZipArchiveDemoTest = () => {
     }
 
     useEffect(() => {
+        console.log('-----pathParameters');
         let filesDir = pathParameters(); // 获取鸿蒙应用文件路径
         let newZipPath: any = filesDir + '.zip';
         let newSourcePath: any = filesDir;
@@ -69,6 +81,7 @@ export const ZipArchiveDemoTest = () => {
         } else {
             Alert.alert('请输入文件名和内容');
         }
+        console.log('-----creteFile');
     };
 
     // 密码压缩
@@ -90,6 +103,7 @@ export const ZipArchiveDemoTest = () => {
                 .catch(error => {
                     Alert.alert('错误', `创建压缩文件失败: ${error}`);
                 });
+            console.log('-----zipWithPassword');
         } else {
             Alert.alert('无文件可供压缩');
         }
@@ -109,7 +123,7 @@ export const ZipArchiveDemoTest = () => {
                     .catch(error => {
                         Alert.alert('错误', `解压文件失败: ${error}`);
                     });
-
+                console.log('-----unzipWithPassword');
             } else {
                 Alert.alert('密码输入错误');
             }
@@ -120,15 +134,13 @@ export const ZipArchiveDemoTest = () => {
 
     // 密码解压&解压
     const handleUnzipPress = () => {
-        if (this.needPassword) {
-            isUnzipWithPassword();
-            return;
-        }
         isPasswordProtected(newZipPath)
             .then((res) => {
                 if (res) {
                     this.needPassword = true;
                     setShowInput(true);
+                    isUnzipWithPassword();
+                    return 'success';
                 } else {
                     if (compressedFilePath) {
                         if (needPassword === false) {
@@ -139,20 +151,27 @@ export const ZipArchiveDemoTest = () => {
                                 .then(() => {
                                     console.log(`unzip success`)
                                     Alert.alert('成功', '已解压');
+                                    return 'success';
                                 })
                                 .catch(error => {
                                     Alert.alert('错误', '解压失败');
                                     console.log(`unzip error: ${error}`);
+                                    return 'failed';
                                 })
+                            console.log('-----unzip');
                         }
                     } else {
                         Alert.alert('无压缩文件可供解压');
+                        return 'failed';
                     }
                 }
             })
             .catch(error => {
-                console.error(`isPasswordProtected error: ${error}`)
+                console.error(`isPasswordProtected error: ${error}`);
+                return 'failed';
             })
+        console.log('-----isPasswordProtected');
+        return 'success';
     }
 
     // 进度条
@@ -193,6 +212,7 @@ export const ZipArchiveDemoTest = () => {
                 clearInterval(interval);
             }
         })
+        console.log('-----subscribe');
     }
 
     // unzipAssets解压到指定目录
@@ -213,6 +233,7 @@ export const ZipArchiveDemoTest = () => {
             } finally {
                 setLoading(false);
             }
+            console.log('-----unzipAssets');
         } else {
             Alert.alert('无压缩文件可供解压');
         }
@@ -228,6 +249,7 @@ export const ZipArchiveDemoTest = () => {
             .catch((err) => {
                 console.log(`getUncompressedSize err:${err}`)
             })
+        console.log('-----getUncompressedSize');
     }
 
     return (
@@ -245,19 +267,10 @@ export const ZipArchiveDemoTest = () => {
                                     style={{ borderWidth: 1, padding: 10, width: '70%' }}
                                 />
                                 <TextInput
-                                    style={{
-                                        height: 100,
-                                        borderColor: 'gray',
-                                        borderWidth: 1,
-                                        width: 200,
-                                        padding: 10,
-                                        marginBottom: 10,
-                                        marginTop: 10
-                                    }}
-                                    onChangeText={text => setFileContent(text)}
+                                    style={styles.input}
+                                    onChangeText={setFileContent}
                                     value={fileContent}
                                     placeholder="文件内容"
-                                    multiline={true}
                                 />
                                 <Button title="创建文件" onPress={() => { createFile(); setState('success'); }} />
                             </View>
@@ -290,6 +303,7 @@ export const ZipArchiveDemoTest = () => {
                                         .catch(error => {
                                             Alert.alert('错误', `压缩失败: ${error}`);
                                         })
+                                    console.log('-----zip');
                                 } else {
                                     Alert.alert('无文件可供压缩');
                                 }
@@ -314,7 +328,7 @@ export const ZipArchiveDemoTest = () => {
                             <TextInput
                                 style={styles.input}
                                 placeholder="设置压缩密码"
-                                onChangeText={text => setPassword(text)}
+                                onChangeText={setPassword}
                                 value={password}
                             />
                             <View style={styles.buttonSix}>
@@ -332,13 +346,18 @@ export const ZipArchiveDemoTest = () => {
                     initialState={''}
                     arrange={({ setState }) =>
                         <View>
+                            <Text >压缩进度</Text>
+                            <View style={styles.progressBar}>
+                                <View style={{ width: `${progress}%`, backgroundColor: '#00AEEF', height: '100%' }}></View>
+                            </View>
+                            <Text style={styles.percentageText}>{progress}%</Text>
                             <TextInput
                                 style={styles.input}
                                 placeholder="输入解压密码"
-                                onChangeText={text => setUnzipPassword(text)}
+                                onChangeText={setUnzipPassword}
                             />
                             <View style={styles.buttonSix}>
-                                <Button title="解压" onPress={() => { handleUnzipPress(); setState('success'); }} />
+                                <Button title="解压" onPress={() => { var result = handleUnzipPress(); setState(result); }} />
                             </View>
                             <Text>解压缩后的大小:{uncompressSize ? uncompressSize : '0'}字节</Text>
                         </View>

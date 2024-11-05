@@ -17,7 +17,7 @@ export default function() {
         <>
             <Text style={styles.textIcon}>{result || ' '}</Text>
             <Button onPress={() => setIsOpen(true)} title='open:basic' />
-            <EmojiPicker onEmojiSelected={handlePick} open={isOpen} onClose={() => setIsOpen(false)} />
+            <EmojiPicker  onEmojiSelected={handlePick} open={isOpen} onClose={() => setIsOpen(false)} />
         </>
     )
 

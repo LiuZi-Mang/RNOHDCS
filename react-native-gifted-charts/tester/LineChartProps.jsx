@@ -25,22 +25,6 @@ export default function () {
     { width: 100 }, { width: 200 },
     { height: 100 }, { height: 200 },
     {
-      overflowTop: 20,
-      data: [
-        { value: 50, dataPointText: '50', dataPointLabelWidth: 15, showStrip: true, },
-        { value: 80, dataPointText: '80', dataPointLabelWidth: 20, showStrip: true, },
-        { value: 90, dataPointText: '90', dataPointLabelWidth: 25, showStrip: true, },
-        { value: 70, dataPointText: '70', dataPointLabelWidth: 30, showStrip: true, }]
-    },
-    {
-      overflowTop: 40,
-      data: [
-        { value: 50, dataPointText: '50', dataPointLabelWidth: 15, showStrip: true, },
-        { value: 80, dataPointText: '80', dataPointLabelWidth: 20, showStrip: true, },
-        { value: 90, dataPointText: '90', dataPointLabelWidth: 25, showStrip: true, },
-        { value: 70, dataPointText: '70', dataPointLabelWidth: 30, showStrip: true, }]
-    },
-    {
       overflowBottom: -10,
       data: [
         { value: 50, dataPointText: '50', dataPointLabelWidth: 15, showStrip: true, },
@@ -63,17 +47,15 @@ export default function () {
     { stepValue: 10 }, { stepValue: 30 },
     { stepHeight: 10 }, { stepHeight: 20 },
     { data: [{ value: -5 }, { value: 10, }, { value: 30 }] },
-    { negativeStepValue: -10, data: [{ value: -5 }, { value: 10, }, { value: 30 }] }, { negativeStepValue: -20, data: [{ value: -5, }, { value: 10, }, { value: 30 }] },
-    { negativeStepHeight: 10 }, { negativeStepHeight: 20 },
     { spacing: 30 }, { spacing: 60 },
     { adjustToWidth: true }, { adjustToWidth: false },
     { backgroundColor: 'red' }, { backgroundColor: 'blue' },
-    { sectionColors: 'green' }, { sectionColors: 'yellow' },
+    { sectionColors: ['red', 'yellow', 'pink', 'blue'] }, { sectionColors: ['blue', 'pink'] },
     { disableScroll: true }, { disableScroll: false },
-    { showScrollIndicator: true, indicatorColor: 'black' },
-    { showScrollIndicator: true, indicatorColor: 'white' },
-    { showScrollIndicator: true, indicatorColor: 'default' },
-    { showScrollIndicator: false },
+    { showScrollIndicator: true, indicatorColor: 'black', data: [{ value: 5 }, { value: 30 }, { value: 30 }, { value: 30 }, { value: 30 }, { value: 30 }, { value: 30 }, { value: 30 }, { value: 30 }, { value: 30 }, { value: 30 }, { value: 5 }] },
+    { showScrollIndicator: true, indicatorColor: 'white', data: [{ value: 5 }, { value: 30 }, { value: 30 }, { value: 30 }, { value: 30 }, { value: 30 }, { value: 30 }, { value: 30 }, { value: 30 }, { value: 30 }, { value: 30 }, { value: 5 }] },
+    { showScrollIndicator: true, indicatorColor: 'default', data: [{ value: 5 }, { value: 30 }, { value: 30 }, { value: 30 }, { value: 30 }, { value: 30 }, { value: 30 }, { value: 30 }, { value: 30 }, { value: 30 }, { value: 30 }, { value: 5 }] },
+    { showScrollIndicator: false, indicatorColor: 'white', data: [{ value: 5 }, { value: 30 }, { value: 30 }, { value: 30 }, { value: 30 }, { value: 30 }, { value: 30 }, { value: 30 }, { value: 30 }, { value: 30 }, { value: 30 }, { value: 5 }] },
     { initialSpacing: 10 }, { initialSpacing: 20 },
     { endSpacing: 20 }, { endSpacing: 40 },
     { color: 'red' }, { color: 'blue' },
@@ -104,15 +86,47 @@ export default function () {
       data5: [{ value: 10 }, { value: 20 }, { value: 30 }, { value: 40 }],
     },
     {
-      zIndex1: 8,
-      zIndex2: 7,
-      zIndex3: 6,
-      zIndex4: 5,
-      zIndex5: 4,
-      data: [{ value: 50 }, { value: 80 }, { value: 90 }, { value: 70 }],
-      data2: [{ value: 70 }, { value: 85 }, { value: 95 }, { value: 100 }],
+      zIndex1: 3,
+      zIndex2: 5,
+      zIndex3: 4,
+      zIndex4: 7,
+      zIndex5: 6,
+      color1: 'red',
+      color2: 'blue',
+      color3: 'gray',
+      color4: 'green',
+      color5: 'yellow',
+      thickness1: 6,
+      thickness2: 6,
+      thickness3: 6,
+      thickness4: 6,
+      thickness5: 6,
+      data: [{ value: 70 }, { value: 5 }, { value: 95 }, { value: 100 }],
+      data2: [{ value: 50 }, { value: 80 }, { value: 90 }, { value: 70 }],
       data3: [{ value: 40 }, { value: 55 }, { value: 65 }, { value: 75 }],
-      data4: [{ value: 25 }, { value: 35 }, { value: 45 }, { value: 55 }],
+      data4: [{ value: 20 }, { value: 30 }, { value: 40 }, { value: 10 }],
+      data5: [{ value: 10 }, { value: 20 }, { value: 30 }, { value: 40 }],
+    },
+    {
+      zIndex1: 9,
+      zIndex2: 5,
+      zIndex3: 4,
+      zIndex4: 7,
+      zIndex5: 6,
+      color1: 'red',
+      color2: 'blue',
+      color3: 'gray',
+      color4: 'green',
+      color5: 'yellow',
+      thickness1: 6,
+      thickness2: 6,
+      thickness3: 6,
+      thickness4: 6,
+      thickness5: 6,
+      data: [{ value: 70 }, { value: 5 }, { value: 95 }, { value: 100 }],
+      data2: [{ value: 50 }, { value: 80 }, { value: 90 }, { value: 70 }],
+      data3: [{ value: 40 }, { value: 55 }, { value: 65 }, { value: 75 }],
+      data4: [{ value: 20 }, { value: 30 }, { value: 40 }, { value: 10 }],
       data5: [{ value: 10 }, { value: 20 }, { value: 30 }, { value: 40 }],
     },
     {
@@ -198,8 +212,8 @@ export default function () {
       data5: [{ value: 10 }, { value: 20 }, { value: 30 }, { value: 40 }],
     },
     { lineGradient: true }, { lineGradient: false },
-    { lineGradient: true, lineGradientStartColor: 'yellow' }, { lineGradient: true, lineGradientStartColor: 'blue' },
-    { lineGradient: true, lineGradientEndColor: 'yellow' }, { lineGradient: true, lineGradientEndColor: 'blue' },
+    { lineGradient: true, lineGradientStartColor: 'red' }, { lineGradient: true, lineGradientStartColor: 'blue' },
+    { lineGradient: true, lineGradientEndColor: 'yellow' }, { lineGradient: true, lineGradientEndColor: 'green' },
     { textColor: 'red', data: [{ value: 50, dataPointText: '50' }, { value: 80, dataPointText: '80' }, { value: 90, dataPointText: '90' }, { value: 70, dataPointText: '70' }] },
     { textColor: 'blue', data: [{ value: 50, dataPointText: '50' }, { value: 80, dataPointText: '80' }, { value: 90, dataPointText: '90' }, { value: 70, dataPointText: '70' }] },
     { textFontSize: 14, data: [{ value: 50, dataPointText: '50' }, { value: 80, dataPointText: '80' }, { value: 90, dataPointText: '90' }, { value: 70, dataPointText: '70' }] },
@@ -302,7 +316,6 @@ export default function () {
       data5: [{ value: 10 }, { value: 20 }, { value: 30 }, { value: 40 }],
     },
   ]
-
   return (
     <Tester>
       <ScrollView>
@@ -317,6 +330,59 @@ export default function () {
             )
           })
         }
+
+        <TestCase itShould='{overflowTop:0}'>
+          <LineChart scrollRef={scrollref} data={lineData}
+            showVerticalLines
+            verticalLinesColor={'white'}
+            overflowTop={0}
+            noOfSections={5}
+            pointerConfig={{
+              initialPointerIndex: 0,
+              stripBehindBars: false,
+              pointerStripHeight: 207,
+              pointerLabelComponent: items => {
+                return (
+                  <View
+                    style={{
+                      width: 36,
+                      padding: 6,
+                      borderWidth: 1,
+                      borderRadius: 8,
+                      backgroundColor: '#eee',
+                    }}>
+                    <Text>{items[0].value}</Text>
+                  </View>
+                );
+              },
+            }}></LineChart>
+        </TestCase>
+        <TestCase itShould='{overflowTop:1}'>
+          <LineChart scrollRef={scrollref} data={lineData}
+            showVerticalLines
+            verticalLinesColor={'white'}
+            overflowTop={1}
+            noOfSections={5}
+            pointerConfig={{
+              initialPointerIndex: 0,
+              stripBehindBars: false,
+              pointerStripHeight: 207,
+              pointerLabelComponent: items => {
+                return (
+                  <View
+                    style={{
+                      width: 36,
+                      padding: 6,
+                      borderWidth: 1,
+                      borderRadius: 8,
+                      backgroundColor: '#eee',
+                    }}>
+                    <Text>{items[0].value}</Text>
+                  </View>
+                );
+              },
+            }}></LineChart>
+        </TestCase>
 
         <TestCase itShould="{focusEnabled: true,delayBeforeUnFocus: 500,
               onFocus: (item, index) => { 

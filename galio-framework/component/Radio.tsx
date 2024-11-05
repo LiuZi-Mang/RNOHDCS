@@ -1,6 +1,6 @@
-import COLORS, { Block, theme, Icon, Radio } from 'galio-framework';
+import { Block, Radio } from 'galio-framework';
 import React, { useState } from 'react';
-import { Alert, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { TestCase, Tester } from '@rnoh/testerino';
 
 const RadioDemo = () => {
@@ -18,8 +18,8 @@ const RadioDemo = () => {
         { containerStyle: { backgroundColor: "#FE247220" } },
         { radioOuterStyle: { backgroundColor: '#FF9C09' } },
         { radioOuterStyle: { backgroundColor: 'purple' } },
-        { radioInnerStyle: { backgroundColor: "blue" } },
-        { radioInnerStyle: { backgroundColor: "red" } },
+        { radioInnerStyle: { backgroundColor: "blue", width: 10, height: 10 } },
+        { radioInnerStyle: { backgroundColor: "red", width: 8, height: 8 } },
         { disabled: true, label: 'disabled -true' },
         { disabled: false, label: 'disabled -false' },
         { initialValue: true, label: 'initialValue -true' },

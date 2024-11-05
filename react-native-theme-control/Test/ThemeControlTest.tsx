@@ -1,17 +1,22 @@
-import React from "react";
-import { View, useColorScheme, ScrollView, Button, Text } from "react-native";
+import React, { useState } from "react";
+import { View, useColorScheme, ScrollView, Button, Text, StyleSheet } from "react-native";
 import SegmentedControl from "@react-native-segmented-control/segmented-control";
 import {
+  setAppBackground,
+  setNavbarAppearance,
   setThemePreference,
   SystemBars,
   ThemePreference,
   useThemePreference,
   AppBackground,
   getThemePreference,
+  // NavigationBar,
+  ThemeAwareStatusBar,
 } from "@vonovak/react-native-theme-control";
 import { Tester, TestCase } from "@rnoh/testerino";
+import { use } from "chai";
 
-const themeControlDemo = () => {
+export const themeControlTest = () => {
   const themePreference = useThemePreference();
   const colorScheme = useColorScheme();
   const isDarkMode = colorScheme === "dark";
@@ -22,30 +27,76 @@ const themeControlDemo = () => {
   const appbgclor = isDarkMode ? "red" : "blue";
 
   const values: Array<ThemePreference> = ["light", "dark", "system"];
+  const unvalue: Array<ThemePreference> = ["light", "dark"];
+  const [systemBarsBackgroundColor, setSystemBarsBackgroundColor] =
+    useState<string>('');
+  const [appLight, setAppLight] = useState<string>('orange');
 
   return (
-    <ScrollView>
+    <View style={{ height: "80%" }}>
       <Tester>
         <TestCase
-          itShould="Get system mode."
-          initialState={"light"}
+          itShould="SystemBars"
+          initialState={"dark"}
           tags={["C_API"]}
           arrange={({ setState, state }) => {
             return (
               <View
                 style={{
-                  backgroundColor: bgColor,
+                  backgroundColor: systemBarsBackgroundColor,
                   flexGrow: 1,
                   flexShrink: 1,
                   alignItems: "center",
                   justifyContent: "space-evenly",
                 }}
               >
+                <Text>backgroundColor={systemBarsBackgroundColor}</Text>
+                <SystemBars
+                  backgroundColor={systemBarsBackgroundColor}
+                  dividerColor={dividerColor}
+                  barStyle={"default"}
+                />
                 <Button
                   onPress={() => {
-                    setState(getThemePreference());
+                    setSystemBarsBackgroundColor(v =>
+                      v === 'yellow' ? 'pink' : 'yellow',
+                    );
+                    setState("light");
                   }}
-                  title={`getSystemMode${getThemePreference()}`}
+                  title={`SystemBars`}
+                />
+              </View>
+            );
+          }}
+          assert={async ({ expect, state }) => {
+            expect(values).to.include(state);
+          }}
+        />
+
+        <TestCase
+          itShould="setAppBackground"
+          initialState={appbgclor}
+          tags={["C_API"]}
+          arrange={({ setState, state }) => {
+            const [appbgc, setAppbgc] = useState('blue')
+            return (
+              <View
+                style={{
+                  backgroundColor: appbgc,
+                  flexGrow: 1,
+                  flexShrink: 1,
+                  alignItems: "center",
+                  justifyContent: "space-evenly",
+                }}
+              >
+                <AppBackground dark={"red"} light={"blue"} />
+                <Button
+                  onPress={() => {
+                    setAppBackground('blue')
+                    setAppbgc('red')
+                    setState("light");
+                  }}
+                  title={`setAppBackground`}
                 />
               </View>
             );
@@ -55,7 +106,37 @@ const themeControlDemo = () => {
           }}
         />
         <TestCase
-          itShould="System mode switching."
+          itShould="AppBackground"
+          initialState={appbgclor}
+          tags={["C_API"]}
+          arrange={({ setState, state }) => {
+            return (
+              <View
+                style={{
+                  backgroundColor: appLight,
+                  flexGrow: 1,
+                  flexShrink: 1,
+                  alignItems: "center",
+                  justifyContent: "space-evenly",
+                }}
+              >
+                <AppBackground dark={"red"} light={appLight} />
+                <Button
+                  onPress={() => {
+                    setAppLight(v => (v === 'orange' ? 'purple' : 'orange'));
+                    setState("light");
+                  }}
+                  title={`AppBackground`}
+                />
+              </View>
+            );
+          }}
+          assert={async ({ expect, state }) => {
+            expect(values).to.include(state);
+          }}
+        />
+        <TestCase
+          itShould="setThemePreference & getThemePreference & useThemePreference & setNavbarAppearance"
           initialState={themePreference}
           tags={["C_API"]}
           arrange={({ setState, state }) => {
@@ -69,8 +150,9 @@ const themeControlDemo = () => {
                   justifyContent: "space-evenly",
                 }}
               >
-                <Text>useColorScheme(): {colorScheme}</Text>
-                <Text>useThemePreference(): {themePreference}</Text>
+                <Text>useColorScheme: {colorScheme}</Text>
+                <Text>useThemePreference: {themePreference}</Text>
+                <Text>getThemePreference: {getThemePreference()}</Text>
                 <SegmentedControl
                   style={{ width: "100%" }}
                   values={values}
@@ -90,71 +172,9 @@ const themeControlDemo = () => {
             expect(values).to.include(state);
           }}
         />
-        <TestCase
-          itShould="Background switching."
-          initialState={appbgclor}
-          tags={["C_API"]}
-          arrange={({ setState, state }) => {
-            return (
-              <View
-                style={{
-                  backgroundColor: appbgclor,
-                  flexGrow: 1,
-                  flexShrink: 1,
-                  alignItems: "center",
-                  justifyContent: "space-evenly",
-                }}
-              >
-                <AppBackground dark={"red"} light={"blue"} />
-                <Button
-                  onPress={() => {
-                    setState("light");
-                  }}
-                  title={`getBackgroundColor`}
-                />
-              </View>
-            );
-          }}
-          assert={async ({ expect, state }) => {
-            expect(values).to.include(state);
-          }}
-        />
-        <TestCase
-          itShould="set navbar color mode."
-          initialState={"dark"}
-          tags={["C_API"]}
-          arrange={({ setState, state }) => {
-            return (
-              <View
-                style={{
-                  backgroundColor: bgColor,
-                  flexGrow: 1,
-                  flexShrink: 1,
-                  alignItems: "center",
-                  justifyContent: "space-evenly",
-                }}
-              >
-                <SystemBars
-                  backgroundColor={barsBackground}
-                  dividerColor={dividerColor}
-                  barStyle={"default"}
-                />
-                <Button
-                  onPress={() => {
-                    setState("light");
-                  }}
-                  title={`getSystemBarsColor`}
-                />
-              </View>
-            );
-          }}
-          assert={async ({ expect, state }) => {
-            expect(values).to.include(state);
-          }}
-        />
       </Tester>
-    </ScrollView>
+    </View>
   );
 };
 
-export default themeControlDemo;
+

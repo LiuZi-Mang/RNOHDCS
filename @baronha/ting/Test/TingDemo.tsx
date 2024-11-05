@@ -8,7 +8,7 @@ import {
 } from '@baronha/ting';
 import { View, StyleSheet, Button, ScrollView } from 'react-native';
 import { Tester, TestSuite, TestCase } from '@rnoh/testerino';
-import balloon from './image/balloon.svg';
+import balloon from './image/balloon.png';
 
 function handleToast(options: ToastOptions) {
     toast(options);
@@ -465,13 +465,36 @@ export function TingExample() {
                         />
                     </TestCase>
 
-                    <TestCase itShould="handleDismissAlert" tags={['C_API']}>
+                    <TestCase itShould="handleDismissAlert duration: 5s, close: 1s" tags={['C_API']}>
                         <Button
-                            title="handleDismissAlert"
+                            title="show alert 5s"
                             onPress={() => {
-                                handleDismissAlert();
+                                const options: AlertOptions = {
+                                    title: 'title-Alert',
+                                    message: 'message-Alert',
+                                    duration: 5
+                                };
+                                handleAlert(options);
                             }}
                         />
+
+                        <View style={styles.buttonBox}>
+                            <Button
+                                title="handleDismissAlert"
+                                onPress={() => {
+                                    const options: AlertOptions = {
+                                        title: 'title-Alert',
+                                        message: 'message-Alert',
+                                        duration: 5
+                                    };
+                                    handleAlert(options);
+
+                                    setTimeout(() => {
+                                        handleDismissAlert();
+                                    }, 1000);
+                                }}
+                            />
+                        </View>
                     </TestCase>
 
                     <TestCase itShould="titleColor and messageColor" tags={['C_API']}>
@@ -874,47 +897,6 @@ export function TingExample() {
                                         title: 'title-Alert',
                                         message: 'message-Alert',
                                         borderRadius: 50,
-                                    };
-                                    handleAlert(options);
-                                }}
-                            />
-                        </View>
-                    </TestCase>
-
-                    <TestCase itShould="blurBackdrop (android only)" tags={['C_API']}>
-                        <Button
-                            title="default"
-                            onPress={() => {
-                                const options: AlertOptions = {
-                                    title: 'title-Alert',
-                                    message: 'message-Alert',
-                                };
-                                handleAlert(options);
-                            }}
-                        />
-
-                        <View style={styles.buttonBox}>
-                            <Button
-                                title="change-10"
-                                onPress={() => {
-                                    const options: AlertOptions = {
-                                        title: 'title-Alert',
-                                        message: 'message-Alert',
-                                        blurBackdrop: 10,
-                                    };
-                                    handleAlert(options);
-                                }}
-                            />
-                        </View>
-
-                        <View style={styles.buttonBox}>
-                            <Button
-                                title="change-50"
-                                onPress={() => {
-                                    const options: AlertOptions = {
-                                        title: 'title-Alert',
-                                        message: 'message-Alert',
-                                        blurBackdrop: 50,
                                     };
                                     handleAlert(options);
                                 }}

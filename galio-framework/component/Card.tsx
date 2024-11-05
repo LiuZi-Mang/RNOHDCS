@@ -1,16 +1,14 @@
-import { Card, Block, theme } from 'galio-framework';
-import React, { useState } from 'react';
-import { Image, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Card, Block } from 'galio-framework';
+import React from 'react';
+import { ScrollView, StyleSheet, Text } from 'react-native';
 import { TestCase, Tester } from '@rnoh/testerino';
 
 const CardDemo = () => {
     const CardProps = [
-        { card: true },
-        { card: false },
-        { shadow: true, shadowColor: "red" },
-        { shadow: false, shadowColor: "red" },
-        { borderless: true, shadowColor: "red", card: true },
-        { borderless: false, shadowColor: "red", card: true },
+        { shadow: true, shadowColor: 'red' },
+        { shadow: false, shadowColor: 'red' },
+        { borderless: true },
+        { borderless: false },
     ]
     return (
         <ScrollView style={styles.container}>
@@ -31,19 +29,31 @@ const CardDemo = () => {
                         )
                     })
                 }
+
+                <TestCase itShould='card: true'>
+                    <Card card={true} style={{ backgroundColor: 'green', textAlign: 'center' }}>
+                        <Text style={{ textAlign: 'center' }}>Card</Text>
+                    </Card>
+                </TestCase>
+                <TestCase itShould='card: false'>
+                    <Card card={false} style={{ backgroundColor: 'blue', textAlign: 'center' }}>
+                        <Text style={{ textAlign: 'center' }}>Card</Text>
+                    </Card>
+                </TestCase>
+
                 <TestCase itShould='image: 图片'>
                     <Card
                         image='https://images.unsplash.com/photo-1497802176320-541c8e8de98d?&w=1600&h=900&fit=crop&crop=entropy&q=300'
                     />
                 </TestCase>
-                <TestCase itShould={JSON.stringify(styles.imageBlockStyle)}>
+                <TestCase itShould={'imageBlockStyle:' + JSON.stringify(styles.imageBlockStyle)}>
                     <Block style={styles.imageBlockStyle}>
                         <Card
                             image='https://images.unsplash.com/photo-1497802176320-541c8e8de98d?&w=1600&h=900&fit=crop&crop=entropy&q=300'
                         />
                     </Block>
                 </TestCase>
-                <TestCase itShould={JSON.stringify(styles.cardImageRadius)}>
+                <TestCase itShould={'imageStyle:' + JSON.stringify(styles.cardImageRadius)}>
                     <Card
                         image='https://images.unsplash.com/photo-1497802176320-541c8e8de98d?&w=1600&h=900&fit=crop&crop=entropy&q=300'
                         imageStyle={styles.cardImageRadius}
@@ -95,7 +105,7 @@ const CardDemo = () => {
                         title='Christopher Moon'
                     />
                 </TestCase>
-                <TestCase itShould='titleColor: 标题颜色'>
+                <TestCase itShould='titleColor: 标题颜色--skyblue'>
                     <Card
                         image='https://images.unsplash.com/photo-1497802176320-541c8e8de98d?&w=1600&h=900&fit=crop&crop=entropy&q=300'
                         avatar='https://avatars.githubusercontent.com/u/155599655?v=4'
@@ -105,7 +115,17 @@ const CardDemo = () => {
                         titleColor='skyblue'
                     />
                 </TestCase>
-                <TestCase itShould='caption: caption(标题)'>
+                <TestCase itShould='titleColor: 标题颜色--blue'>
+                    <Card
+                        image='https://images.unsplash.com/photo-1497802176320-541c8e8de98d?&w=1600&h=900&fit=crop&crop=entropy&q=300'
+                        avatar='https://avatars.githubusercontent.com/u/155599655?v=4'
+                        location="Los Angeles, CA"
+                        locationColor='skyblue'
+                        title='Christopher Moon'
+                        titleColor='blue'
+                    />
+                </TestCase>
+                <TestCase itShould='caption: caption(小标题)'>
                     <Card
                         image='https://images.unsplash.com/photo-1497802176320-541c8e8de98d?&w=1600&h=900&fit=crop&crop=entropy&q=300'
                         avatar='https://avatars.githubusercontent.com/u/155599655?v=4'
@@ -116,7 +136,7 @@ const CardDemo = () => {
                         caption="139 minutes ago"
                     />
                 </TestCase>
-                <TestCase itShould='captionColor: purple(标题颜色)'>
+                <TestCase itShould='captionColor: purple(小标题颜色)'>
                     <Card
                         image='https://images.unsplash.com/photo-1497802176320-541c8e8de98d?&w=1600&h=900&fit=crop&crop=entropy&q=300'
                         avatar='https://avatars.githubusercontent.com/u/155599655?v=4'
@@ -128,7 +148,7 @@ const CardDemo = () => {
                         captionColor="purple"
                     />
                 </TestCase>
-                <TestCase itShould='captionColor: blue(标题颜色)'>
+                <TestCase itShould='captionColor: blue(小标题颜色)'>
                     <Card
                         image='https://images.unsplash.com/photo-1497802176320-541c8e8de98d?&w=1600&h=900&fit=crop&crop=entropy&q=300'
                         avatar='https://avatars.githubusercontent.com/u/155599655?v=4'

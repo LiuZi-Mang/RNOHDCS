@@ -1,6 +1,6 @@
-import COLORS, { NavBar, Block } from 'galio-framework';
+import { NavBar, Block } from 'galio-framework';
 import React, { useState } from 'react';
-import { Alert, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { TestCase, Tester } from '@rnoh/testerino';
 
@@ -61,6 +61,18 @@ const NavBarDemo = () => {
                 <TestCase itShould='right: icon组件'>
                     <NavBar
                         right={<Ionicons name="alarm" size={20} color="red" />}
+                    />
+                </TestCase>
+                <TestCase itShould="rightStyle: backgroundColor:'blue',borderRadius:10">
+                    <NavBar
+                        right={<Text>rightStyle</Text>}
+                        rightStyle={{backgroundColor:'blue',borderRadius:10}}
+                    />
+                </TestCase>
+                <TestCase itShould="rightStyle: backgroundColor:'skyblue',borderRadius:5">
+                    <NavBar
+                        right={<Text>rightStyle</Text>}
+                        rightStyle={{backgroundColor:'skyblue',borderRadius:5}}
                     />
                 </TestCase>
                 <TestCase itShould='leftIconColor: blue'>

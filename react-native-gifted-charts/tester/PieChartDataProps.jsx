@@ -22,7 +22,7 @@ export default function () {
       showTextBackground: true,
       sectionAutoFocus: true,
       data: [
-        { shiftTextX: 10, shiftTextY: 20, value: 60, text: '60', textColor: 'red', focused: true, },
+        { shiftTextX: 10, shiftTextY: 20, value: 60, text: '60', focused: true, },
         { value: 70, text: '70', textColor: 'blue', },
         { value: 40, text: '40', textColor: 'black', }
       ],
@@ -32,7 +32,7 @@ export default function () {
       showTextBackground: true,
       sectionAutoFocus: true,
       data: [
-        { shiftTextX: 20, shiftTextY: 30, value: 60, text: '60', textColor: 'red', focused: true, },
+        { shiftTextX: 20, shiftTextY: 30, value: 60, text: '60', focused: true, },
         { value: 70, text: '70', textColor: 'blue', },
         { value: 40, text: '40', textColor: 'black', }
       ],
@@ -41,9 +41,36 @@ export default function () {
       showText: true,
       showTextBackground: true,
       data: [
-        { value: 60, text: '60', textColor: 'red', fontStyle: 'normal', fontWeight: 'bold', font: 'Arial' },
-        { value: 70, text: '70', textColor: 'blue', fontStyle: 'italic', fontWeight: 'bolder', font: 'Cursive' },
-        { value: 40, text: '40', textColor: 'black', fontStyle: 'oblique', fontWeight: 'lighter', font: 'Comic Sans MS' }
+        { value: 60, text: '60', textColor: 'red' },
+        { value: 70, text: '70', textColor: 'blue' },
+        { value: 40, text: '40', textColor: 'black' }
+      ],
+    },
+    {
+      showText: true,
+      showTextBackground: true,
+      data: [
+        { value: 60, text: '60',  fontStyle: 'normal' },
+        { value: 70, text: '70',  fontStyle: 'italic' },
+        { value: 40, text: '40',  fontStyle: 'oblique' }
+      ],
+    },
+    {
+      showText: true,
+      showTextBackground: true,
+      data: [
+        { value: 60, text: '60', fontWeight: 'bold' },
+        { value: 70, text: '70', fontWeight: 'bolder'},
+        { value: 40, text: '40', fontWeight: 'lighter' }
+      ],
+    },
+    {
+      showText: true,
+      showTextBackground: true,
+      data: [
+        { value: 60, text: '60', font: 'Arial' },
+        { value: 70, text: '70', font: 'Cursive' },
+        { value: 40, text: '40', font: 'Comic Sans MS' }
       ],
     },
     {
@@ -57,6 +84,7 @@ export default function () {
     },
     {
       showText: true,
+      paddingHorizontal:100,
       data: [
         { value: 60, text: '60', strokeWidth: 5, strokeColor: 'red' },
         { value: 70, text: '70', strokeWidth: 10, strokeColor: 'yellow' },
@@ -87,22 +115,21 @@ export default function () {
           })
         }
         <TestCase itShould="{
-              showText: true,
-              showTextBackground: true,
-              data: [
-                { value: 60, text: '60', textBackgroundColor: 'red', textBackgroundRadius: 10, onLabelPress: () => { setOnLablePressText('pieDataItem onLabelPress is trigger text:60') } },
-                { value: 70, text: '70', textBackgroundColor: 'yellow', textBackgroundRadius: 20, onLabelPress: () => { setOnLablePressText('pieDataItem onLabelPress is trigger text:70') } },
-                { value: 40, text: '40', textBackgroundColor: 'blue', textBackgroundRadius: 30, onLabelPress: () => { setOnLablePressText('pieDataItem onLabelPress is trigger text:40') } }
-              ],
-            }">
-          <Text>请点击饼图中的文字触发onLabelPress方法：{onLablePressText}</Text>
+          showText: true,
+          showTextBackground: true,
+          data: [
+            { value: 60, text: '60', textBackgroundColor: 'red', textBackgroundRadius: 10 },
+            { value: 70, text: '70', textBackgroundColor: 'yellow', textBackgroundRadius: 20 },
+            { value: 40, text: '40', textBackgroundColor: 'blue', textBackgroundRadius: 30  }
+          ],
+        }">
           <PieChart data={pieData} {...{
             showText: true,
             showTextBackground: true,
             data: [
-              { value: 60, text: '60', textBackgroundColor: 'red', textBackgroundRadius: 10, onLabelPress: () => { setOnLablePressText('pieDataItem onLabelPress is trigger text:60') } },
-              { value: 70, text: '70', textBackgroundColor: 'yellow', textBackgroundRadius: 20, onLabelPress: () => { setOnLablePressText('pieDataItem onLabelPress is trigger text:70') } },
-              { value: 40, text: '40', textBackgroundColor: 'blue', textBackgroundRadius: 30, onLabelPress: () => { setOnLablePressText('pieDataItem onLabelPress is trigger text:40') } }
+              { value: 60, text: '60', textBackgroundColor: 'red', textBackgroundRadius: 10  },
+              { value: 70, text: '70', textBackgroundColor: 'yellow', textBackgroundRadius: 20 },
+              { value: 40, text: '40', textBackgroundColor: 'blue', textBackgroundRadius: 30 }
             ],
           }}></PieChart>
         </TestCase>

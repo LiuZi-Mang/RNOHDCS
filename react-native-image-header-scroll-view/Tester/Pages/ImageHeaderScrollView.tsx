@@ -11,6 +11,7 @@ import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, Image,Animated, Dimensions ,Easing} from 'react-native';
 import { Tester, TestCase, TestSuite } from '@rnoh/testerino'
 import ImageHeaderScrollView, { TriggeringView } from 'react-native-image-header-scroll-view';
+
 const MIN_HEIGHT = 80;
 const MAX_HEIGHT = 250;
 const tvShowContent = {
@@ -45,6 +46,7 @@ const styles = StyleSheet.create({
     },
     title: {
         fontSize: 20,
+        color:'yellow'
     },
     name: {
         fontWeight: 'bold',
@@ -132,17 +134,16 @@ function ImageHeaderScrollViewExample() {
      
     return (
             <Tester>
-                <TestSuite name='ImageHeaderScrollView'>
-                    <TestCase  itShould='ImageHeaderScrollView'>
+                <TestSuite name='HeaderImage 设置header图片'>
+                    <TestCase  itShould='HeaderImage'>
                         <View style={{ height:1000}}>
                             <ImageHeaderScrollView
                                 maxHeight={MAX_HEIGHT}
                                 minHeight={MIN_HEIGHT}
                                 maxOverlayOpacity={0.8}
                                 minOverlayOpacity={0.2}
-                                fadeOutForeground={true}
-                                foregroundParallaxRatio={1}
                                 overlayColor={'blue'}
+                                headerImage={{uri:'https://cdn.pixabay.com/photo/2016/11/21/12/42/beard-1845166_1280.jpg'}}
                                 renderHeader={() => <Image source={require('./doctorwho.jpg')} style={styles.image} />}
                                 renderFixedForeground={() => (
                                     <Animated.View
@@ -158,11 +159,17 @@ function ImageHeaderScrollViewExample() {
                                         <Text style={styles.imageTitle}>{tvShowContent.title}</Text>
                                     </View>
                                 )}
-                                useNativeDriver={true}
-                                disableHeaderGrow={false}
+                                // fixedForegroundContainerStyles={{backgroundColor: '#999999',
+                                // borderRadius: 10,
+                                // margin: 10,
+                                // padding: 10,}}
+                                // useNativeDriver={true}
+                                // disableHeaderGrow={false}
+                         
                             >
                                 <>
                                     <TriggeringView
+                                       
                                         onHide={() => setVisible(true)}
                                         onDisplay={() => setVisible(false)}
                                     >
